@@ -167,6 +167,9 @@ project(":core") {
 
     configurations {
         shadow
+        // I'm not sure what's going on here, but this works
+        // https://github.com/bytedeco/javacv/issues/395
+        all*.exclude group: 'org.bytedeco', module: 'javacpp-presets'
     }
 
     repositories {
@@ -183,11 +186,14 @@ project(":core") {
 
     dependencies {
         compile group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-        compile group: 'org.bytedeco', name: 'javacv', version: '1.1'
-        compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '3.0.0-1.1'
-        compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '3.0.0-1.1', classifier: os
-        compile group: 'org.bytedeco.javacpp-presets', name: 'opencv-3.0.0-1.1', classifier: 'linux-frc'
-        compile group: 'org.bytedeco.javacpp-presets', name: 'videoinput', version: '0.200-1.1', classifier: os
+        compile group: 'org.bytedeco', name: 'javacv', version: '1.2'
+        compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '3.1.0-1.2'
+        compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '3.1.0-1.2', classifier: os
+        compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '3.1.0-1.2', classifier: 'linux-armhf'
+        // I can uncomment this once someone rebuilds the opencv javacpp-presets for frc.
+        // I was having trouble installing the frc toolchain on xenial, so that means for now you can't deploy to the rio
+        //compile group: 'org.bytedeco.javacpp-presets', name: 'opencv-3.1.0-1.2', classifier: 'linux-frc'
+        compile group: 'org.bytedeco.javacpp-presets', name: 'videoinput', version: '0.200-1.2', classifier: os
         compile group: 'org.python', name: 'jython', version: '2.7.0'
         compile group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.8'
         compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
